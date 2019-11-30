@@ -1,10 +1,8 @@
-import { multiplier } from "./App";
-
 var assert = require("assert");
 
-const dark = 'rgb(80, 81, 79)';
-const red = 'rgb(226,104,98)';
-const yellow = '#70C1B3';
+const dark = "rgb(80, 81, 79)";
+const red = "rgb(226,104,98)";
+const yellow = "#70C1B3";
 
 class BST {
   constructor(x, y) {
@@ -19,11 +17,7 @@ class BST {
     if (child.value <= parent.value) {
       child.color = dark;
       if (!parent.left) {
-        const cx = parseFloat(parent.cx) - (this.X * multiplier)
-        child.cx = cx.toString() + "%";
-        const cy = parseFloat(parent.cy) + (this.Y)
-        child.cy = cy.toString() + "px";
-        child.parent = parent;
+        child = this.transform(parent, child, true);
         parent.left = child;
       } else {
         this.recursive_insert(parent.left, child);
@@ -31,17 +25,24 @@ class BST {
     } else {
       child.color = yellow;
       if (!parent.right) {
-        const cx = parseFloat(parent.cx) + (this.X * multiplier)
-        child.cx = cx.toString() + "%";
-        const cy = parseFloat(parent.cy) + (this.Y)
-        child.cy = cy.toString() + "px";
-        child.parent = parent;
+        child = this.transform(parent, child, false);
         parent.right = child;
       } else {
         this.recursive_insert(parent.right, child);
       }
     }
   }
+
+  transform = (parent, child, left) => {
+    const cx = left
+      ? parseFloat(parent.cx) - this.X
+      : parseFloat(parent.cx) + this.X;
+    child.cx = cx.toString() + "%";
+    const cy = parseFloat(parent.cy) + this.Y;
+    child.cy = cy.toString() + "px";
+    child.parent = parent;
+    return child;
+  };
 
   insert(value) {
     const nuevo = new Node(value);
@@ -74,12 +75,12 @@ class Node {
     this.right = undefined;
     this.parent = undefined;
     this.r = 18;
-    this.cx = '50%';
+    this.cx = "50%";
     this.cy = 40;
-    this.color =undefined;
+    this.color = undefined;
     this.isLeft = false;
     this.isRight = false;
   }
 }
 
-export { BST }
+export { BST };

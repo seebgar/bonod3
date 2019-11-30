@@ -18,7 +18,6 @@ export default class App extends React.Component {
 
     this.state = {
       value: undefined,
-      radius: 20,
       tree: tree,
       svgContainer: undefined
     };
@@ -50,7 +49,6 @@ export default class App extends React.Component {
     const valor = parseInt(event.target.numero.value);
     this.setState(
       prev => {
-        multiplier += 0;
         prev.tree.insert(valor);
         return { tree: prev.tree };
       },
@@ -94,7 +92,7 @@ export default class App extends React.Component {
       .duration(1300)
       .style("opacity", 1);
 
-      arcos
+    arcos
       .transition()
       .delay(600)
       .duration(1600)
@@ -149,5 +147,3 @@ export default class App extends React.Component {
   }
 }
 
-let multiplier = 1;
-export { multiplier };
